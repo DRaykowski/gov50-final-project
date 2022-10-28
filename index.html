@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/header-attrs-2.17/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["Data/91de8b42-fa3d-44cf-ab4e-4fac76ff364c_Data.csv","Data/91de8b42-fa3d-44cf-ab4e-4fac76ff364c_Series - Metadata.csv","Data/Abortion_Laws_Indicators.csv","Data/Countries-Continents.csv","Data/Government_Composition_1960-2020_Update_2022.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/header-attrs-2.16/header-attrs.js","index_files/header-attrs-2.17/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1519,7 +1519,160 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-article">
 <h2 id="project-thoughts">Project thoughts</h2>
 <p>I am interested in possible working with something pertaining to law as I consider a possible legal career. Maybe I could look into something with legal ruling in certain communities depending on different factors.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<h2 id="project-data">Project Data</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span><span class='va'>abortion</span><span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"Data/Abortion_Laws_Indicators.csv"</span><span class='op'>)</span></span>
+<span><span class='va'>world_bank</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"Data/91de8b42-fa3d-44cf-ab4e-4fac76ff364c_Data.csv"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>Countries_Continents</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"Data/Countries-Continents.csv"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>Countries_Continents</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>ctr_name <span class='op'>=</span> <span class='va'>Country</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code># A tibble: 194 × 2
+   Continent ctr_name                
+   &lt;chr&gt;     &lt;chr&gt;                   
+ 1 Africa    Algeria                 
+ 2 Africa    Angola                  
+ 3 Africa    Benin                   
+ 4 Africa    Botswana                
+ 5 Africa    Burkina                 
+ 6 Africa    Burundi                 
+ 7 Africa    Cameroon                
+ 8 Africa    Cape Verde              
+ 9 Africa    Central African Republic
+10 Africa    Chad                    
+# … with 184 more rows</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>abortion</span></span></code></pre>
+</div>
+<pre><code># A tibble: 8,699 × 12
+   country  year ctr_y…¹ ctr_n…² life_…³ physi…⁴ menta…⁵  rape fetal…⁶
+     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+ 1       1  1960   11960 Afghan…      NA      NA      NA    NA      NA
+ 2       1  1961   11961 Afghan…      NA      NA      NA    NA      NA
+ 3       1  1962   11962 Afghan…      NA      NA      NA    NA      NA
+ 4       1  1963   11963 Afghan…      NA      NA      NA    NA      NA
+ 5       1  1964   11964 Afghan…      NA      NA      NA    NA      NA
+ 6       1  1965   11965 Afghan…      NA      NA      NA    NA      NA
+ 7       1  1966   11966 Afghan…      NA      NA      NA    NA      NA
+ 8       1  1967   11967 Afghan…      NA      NA      NA    NA      NA
+ 9       1  1968   11968 Afghan…      NA      NA      NA    NA      NA
+10       1  1969   11969 Afghan…      NA      NA      NA    NA      NA
+# … with 8,689 more rows, 3 more variables: economic &lt;dbl&gt;,
+#   request &lt;dbl&gt;, index &lt;lgl&gt;, and abbreviated variable names
+#   ¹​ctr_year, ²​ctr_name, ³​life_threat, ⁴​physical_health,
+#   ⁵​mental_health, ⁶​fetal_impairment</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>world_bank_change</span> <span class='op'>&lt;-</span> <span class='va'>world_bank</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>`Series Code`</span>,<span class='va'>`Country Code`</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='st'>"1960"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1960 [YR1960]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1961"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1961 [YR1961]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1962"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1962 [YR1962]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1963"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1963 [YR1963]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1964"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1964 [YR1964]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1965"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1965 [YR1965]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1966"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1966 [YR1966]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1967"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1967 [YR1967]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1968"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1968 [YR1968]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1969"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1969 [YR1969]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1970"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1970 [YR1970]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1971"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1971 [YR1971]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1972"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1972 [YR1972]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1973"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1973 [YR1973]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1974"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1974 [YR1974]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1975"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1975 [YR1975]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1976"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1976 [YR1976]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1977"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1977 [YR1977]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1978"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1978 [YR1978]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1979"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1979 [YR1979]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1980"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1980 [YR1980]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1981"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1981 [YR1981]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1982"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1982 [YR1982]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1983"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1983 [YR1983]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1984"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1984 [YR1984]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1985"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1985 [YR1985]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1986"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1986 [YR1986]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1987"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1987 [YR1987]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1988"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1988 [YR1988]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1989"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1989 [YR1989]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1990"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1990 [YR1990]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1991"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1991 [YR1991]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1992"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1992 [YR1992]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1993"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1993 [YR1993]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1994"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1994 [YR1994]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1995"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1995 [YR1995]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1996"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1996 [YR1996]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1997"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1997 [YR1997]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1998"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1998 [YR1998]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"1999"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`1999 [YR1999]`</span><span class='op'>)</span>,</span>
+<span>         <span class='st'>"2000"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>`2000 [YR2000]`</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>`1960 [YR1960]`</span><span class='op'>:</span><span class='va'>`2000 [YR2000]`</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span>cols <span class='op'>=</span> <span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>`Country Name`</span>, <span class='va'>`Series Name`</span><span class='op'>)</span>,</span>
+<span>               names_to <span class='op'>=</span> <span class='st'>"year"</span>,</span>
+<span>               values_to <span class='op'>=</span> <span class='st'>"Values"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>row <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/ranking.html'>row_number</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span><span class='op'>(</span>names_from <span class='op'>=</span> <span class='st'>"Series Name"</span>,</span>
+<span>              values_from <span class='op'>=</span> <span class='st'>"Values"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>row</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/distinct.html'>distinct</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>ctr_name <span class='op'>=</span> <span class='va'>`Country Name`</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>year <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/double.html'>as.double</a></span><span class='op'>(</span><span class='va'>year</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>world_bank_change</span></span></code></pre>
+</div>
+<pre><code># A tibble: 12,336 × 8
+   ctr_name     year Adequacy …¹ Condo…² Condo…³ Contr…⁴ Contr…⁵  `NA`
+   &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+ 1 Afghanistan  1960          NA      NA      NA      NA      NA    NA
+ 2 Afghanistan  1961          NA      NA      NA      NA      NA    NA
+ 3 Afghanistan  1962          NA      NA      NA      NA      NA    NA
+ 4 Afghanistan  1963          NA      NA      NA      NA      NA    NA
+ 5 Afghanistan  1964          NA      NA      NA      NA      NA    NA
+ 6 Afghanistan  1965          NA      NA      NA      NA      NA    NA
+ 7 Afghanistan  1966          NA      NA      NA      NA      NA    NA
+ 8 Afghanistan  1967          NA      NA      NA      NA      NA    NA
+ 9 Afghanistan  1968          NA      NA      NA      NA      NA    NA
+10 Afghanistan  1969          NA      NA      NA      NA      NA    NA
+# … with 12,326 more rows, and abbreviated variable names
+#   ¹​`Adequacy of social insurance programs (% of total welfare of beneficiary households)`,
+#   ²​`Condom use, population ages 15-24, male (% of males ages 15-24)`,
+#   ³​`Condom use, population ages 15-24, female (% of females ages 15-24)`,
+#   ⁴​`Contraceptive prevalence, any method (% of married women ages 15-49)`,
+#   ⁵​`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>abort_stats</span> <span class='op'>&lt;-</span> <span class='va'>abortion</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>world_bank_change</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>country</span>, <span class='va'>ctr_year</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>abort_stats</span></span></code></pre>
+</div>
+<pre><code># A tibble: 9,817 × 16
+    year ctr_n…¹ life_…² physi…³ menta…⁴  rape fetal…⁵ econo…⁶ request
+   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1  1960 Afghan…      NA      NA      NA    NA      NA      NA      NA
+ 2  1961 Afghan…      NA      NA      NA    NA      NA      NA      NA
+ 3  1962 Afghan…      NA      NA      NA    NA      NA      NA      NA
+ 4  1963 Afghan…      NA      NA      NA    NA      NA      NA      NA
+ 5  1964 Afghan…      NA      NA      NA    NA      NA      NA      NA
+ 6  1965 Afghan…      NA      NA      NA    NA      NA      NA      NA
+ 7  1966 Afghan…      NA      NA      NA    NA      NA      NA      NA
+ 8  1967 Afghan…      NA      NA      NA    NA      NA      NA      NA
+ 9  1968 Afghan…      NA      NA      NA    NA      NA      NA      NA
+10  1969 Afghan…      NA      NA      NA    NA      NA      NA      NA
+# … with 9,807 more rows, 7 more variables: index &lt;lgl&gt;,
+#   `Adequacy of social insurance programs (% of total welfare of beneficiary households)` &lt;dbl&gt;,
+#   `Condom use, population ages 15-24, male (% of males ages 15-24)` &lt;dbl&gt;,
+#   `Condom use, population ages 15-24, female (% of females ages 15-24)` &lt;dbl&gt;,
+#   `Contraceptive prevalence, any method (% of married women ages 15-49)` &lt;dbl&gt;,
+#   `Contraceptive prevalence, any modern method (% of married women ages 15-49)` &lt;dbl&gt;,
+#   `NA` &lt;dbl&gt;, and abbreviated variable names ¹​ctr_name, …</code></pre>
+</div>
+<h2 id="proposal">Proposal</h2>
+<p>One aspect that I would like to spend some time explorig would be the relationship between abortion availability with regards to certain programs that could be seen as more liberal. It could be reasoned that in countries with more liberal policies, there would be more access to abortion with less stringient restrictions. Liberal policies tend to favor more bodily autonomy, therefore it coul dbe assumed that places with liberal policies would, consequently, have greater access to abortion. The first variables ranging from “life_threat” to “request” are the instances in which abortion is available. When there is a one present, that means that aborion is available fro that specific concern. For example, if there is only a one present in “life_threat”, then women would only be able to recieve an abortion if the pregrancy posed a threat to their life. The colums following those demonstrate some policies that could be seen as relatively liberal, such as social insurance, and contraceptive access. The outcoe variable in this case would be whether or not abortion is more accessable in different places depending on the presense, or lack of liberal policies. The outcome is binary, and is one when something is an acceptable reason. Data that owuld support this hypothesis would be a higher correlation with data in liberal programs, and more accessible abortion. One main thing that would disprove would be if the presence of liberal programs lessened the access of abortion.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

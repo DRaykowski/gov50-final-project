@@ -13,5 +13,87 @@ output:
 
 I am interested in possible working with something pertaining to law as I consider a possible legal career. Maybe I could look into something with legal ruling in certain communities depending on different factors.
 
+## Project Data
+
+```{r}
+library(tidyverse)
+abortion<- read_csv("Data/Abortion_Laws_Indicators.csv")
+world_bank <- read_csv("Data/91de8b42-fa3d-44cf-ab4e-4fac76ff364c_Data.csv")
+
+Countries_Continents <- read_csv("Data/Countries-Continents.csv")
+
+Countries_Continents |>
+  rename(ctr_name = Country)
+
+abortion
+world_bank_change <- world_bank |>
+  select(-c(`Series Code`,`Country Code`)) |>
+  mutate("1960" = as.double(`1960 [YR1960]`),
+         "1961" = as.double(`1961 [YR1961]`),
+         "1962" = as.double(`1962 [YR1962]`),
+         "1963" = as.double(`1963 [YR1963]`),
+         "1964" = as.double(`1964 [YR1964]`),
+         "1965" = as.double(`1965 [YR1965]`),
+         "1966" = as.double(`1966 [YR1966]`),
+         "1967" = as.double(`1967 [YR1967]`),
+         "1968" = as.double(`1968 [YR1968]`),
+         "1969" = as.double(`1969 [YR1969]`),
+         "1970" = as.double(`1970 [YR1970]`),
+         "1971" = as.double(`1971 [YR1971]`),
+         "1972" = as.double(`1972 [YR1972]`),
+         "1973" = as.double(`1973 [YR1973]`),
+         "1974" = as.double(`1974 [YR1974]`),
+         "1975" = as.double(`1975 [YR1975]`),
+         "1976" = as.double(`1976 [YR1976]`),
+         "1977" = as.double(`1977 [YR1977]`),
+         "1978" = as.double(`1978 [YR1978]`),
+         "1979" = as.double(`1979 [YR1979]`),
+         "1980" = as.double(`1980 [YR1980]`),
+         "1981" = as.double(`1981 [YR1981]`),
+         "1982" = as.double(`1982 [YR1982]`),
+         "1983" = as.double(`1983 [YR1983]`),
+         "1984" = as.double(`1984 [YR1984]`),
+         "1985" = as.double(`1985 [YR1985]`),
+         "1986" = as.double(`1986 [YR1986]`),
+         "1987" = as.double(`1987 [YR1987]`),
+         "1988" = as.double(`1988 [YR1988]`),
+         "1989" = as.double(`1989 [YR1989]`),
+         "1990" = as.double(`1990 [YR1990]`),
+         "1991" = as.double(`1991 [YR1991]`),
+         "1992" = as.double(`1992 [YR1992]`),
+         "1993" = as.double(`1993 [YR1993]`),
+         "1994" = as.double(`1994 [YR1994]`),
+         "1995" = as.double(`1995 [YR1995]`),
+         "1996" = as.double(`1996 [YR1996]`),
+         "1997" = as.double(`1997 [YR1997]`),
+         "1998" = as.double(`1998 [YR1998]`),
+         "1999" = as.double(`1999 [YR1999]`),
+         "2000" = as.double(`2000 [YR2000]`)) |>
+  select(-c(`1960 [YR1960]`:`2000 [YR2000]`)) |>
+  pivot_longer(cols = -c(`Country Name`, `Series Name`),
+               names_to = "year",
+               values_to = "Values") |>
+  mutate(row = row_number()) |>
+  pivot_wider(names_from = "Series Name",
+              values_from = "Values") |>
+  select(-row) |>
+  distinct() |>
+  rename(ctr_name = `Country Name`) |>
+  mutate(year = as.double(year))
+
+world_bank_change
+
+  
+
+abort_stats <- abortion |>
+  left_join(world_bank_change) |>
+  select(-c(country, ctr_year))
+
+abort_stats
 
 
+```
+
+## Proposal
+
+One aspect that I would like to spend some time explorig would be the relationship between abortion availability with regards to certain programs that could be seen as more liberal. It could be reasoned that in countries with more liberal policies, there would be more access to abortion with less stringient restrictions. Liberal policies tend to favor more bodily autonomy, therefore it coul dbe assumed that places with liberal policies would, consequently, have greater access to abortion. The first variables ranging from "life_threat" to "request" are the instances in which abortion is available. When there is a one present, that means that aborion is available fro that specific concern. For example, if there is only a one present in "life_threat", then women would only be able to recieve an abortion if the pregrancy posed a threat to their life. The colums following those demonstrate some policies that could be seen as relatively liberal, such as social insurance, and contraceptive access. The outcoe variable in this case would be whether or not abortion is more accessable in different places depending on the presense, or lack of liberal policies. The outcome is binary, and is one when something is an acceptable reason. Data that owuld support this hypothesis would be a higher correlation with data in liberal programs, and more accessible abortion. One main thing that would disprove would be if the presence of liberal programs lessened the access of abortion. 
