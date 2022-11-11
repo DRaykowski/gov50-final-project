@@ -22,8 +22,10 @@ world_bank <- read_csv("Data/91de8b42-fa3d-44cf-ab4e-4fac76ff364c_Data.csv")
 
 Countries_Continents <- read_csv("Data/Countries-Continents.csv")
 
-Countries_Continents |>
+Countries_Continents <- Countries_Continents |>
   rename(ctr_name = Country)
+
+Countries_Continents
 
 abortion
 world_bank_change <- world_bank |>
@@ -91,9 +93,38 @@ abort_stats <- abortion |>
 
 abort_stats
 
+abort_stats <- abort_stats |>
+  left_join(Countries_Continents)
+
 
 ```
 
 ## Proposal
 
 One aspect that I would like to spend some time explorig would be the relationship between abortion availability with regards to certain programs that could be seen as more liberal. It could be reasoned that in countries with more liberal policies, there would be more access to abortion with less stringient restrictions. Liberal policies tend to favor more bodily autonomy, therefore it coul dbe assumed that places with liberal policies would, consequently, have greater access to abortion. The first variables ranging from "life_threat" to "request" are the instances in which abortion is available. When there is a one present, that means that aborion is available fro that specific concern. For example, if there is only a one present in "life_threat", then women would only be able to recieve an abortion if the pregrancy posed a threat to their life. The colums following those demonstrate some policies that could be seen as relatively liberal, such as social insurance, and contraceptive access. The outcoe variable in this case would be whether or not abortion is more accessable in different places depending on the presense, or lack of liberal policies. The outcome is binary, and is one when something is an acceptable reason. Data that owuld support this hypothesis would be a higher correlation with data in liberal programs, and more accessible abortion. One main thing that would disprove would be if the presence of liberal programs lessened the access of abortion. 
+
+## Visual 
+
+```{r}
+cont_prev <- abort_stats |>
+  drop_na(`Contraceptive prevalence, any modern method (% of married women ages 15-49)`) |>
+  select(Continent, year, ctr_name, `Contraceptive prevalence, any modern method (% of married women ages 15-49)`)
+
+cont_prev
+
+contraceptive_mdrn_plot <- cont_prev|>
+  group_by(Continent) |>
+  ggplot(mapping = aes(x = year, 
+                       y = `Contraceptive prevalence, any modern method (% of married women ages 15-49)`)) + 
+  geom_line(mapping = aes(group = ctr_name)) +
+  geom_smooth(method = "lm",
+              se = F) +
+  facet_wrap(~ Continent) +
+  labs(title = "Prevalence of Modern Contraceptives with Respect to Time, by Continent",
+       x = "Year",
+       y = "Modern Contraceptive Prevalence (by % Married Women ages 15-49)")
+
+contraceptive_mdrn_plot
+ 
+```
+
