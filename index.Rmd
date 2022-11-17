@@ -128,3 +128,23 @@ contraceptive_mdrn_plot
  
 ```
 
+## Regression Analysis of Contraceptive Prevalence in terms of Years
+```{r}
+  cont_reg <- lm(formula = `Contraceptive prevalence, any modern method (% of married women ages 15-49)` ~ year, data = cont_prev)
+
+dot_plot <- cont_prev|>
+  ggplot(mapping = aes(x = year,
+                       y = `Contraceptive prevalence, any modern method (% of married women ages 15-49)`)) +
+  geom_point() +
+  facet_wrap(~Continent) +
+  geom_smooth(method = "lm")
+
+dot_plot
+
+cont_reg |>
+  broom::tidy() |>
+  select(term, estimate) |>
+  knitr::kable(digits = 3, col.names = c("Statistic of Interest", "Estimated Value"))
+```
+
+In this regression model there appears to be a slight positive correlation with the year and the prevalence. The intercept of this would not necessarily serve to be inherently valuable because the year being zero would not be a value that is of interest. The slope of the line is more valuale as it demonstrates that for every year contraceptive prevalence would be expected to increase by around 0.122. This can be somewhat seen with the plots, as on average the slopes of the best fit lines, using a linear model, tend to trend up, with the exception being in Oceania, which has more scattered data. 
