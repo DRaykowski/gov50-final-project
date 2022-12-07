@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["Data/91de8b42-fa3d-44cf-ab4e-4fac76ff364c_Data.csv","Data/91de8b42-fa3d-44cf-ab4e-4fac76ff364c_Series - Metadata.csv","Data/Abortion_Laws_Indicators.csv","Data/Countries-Continents.csv","Data/Government_Composition_1960-2020_Update_2022.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/header-attrs-2.16/header-attrs.js","index_files/header-attrs-2.17/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["Data/91de8b42-fa3d-44cf-ab4e-4fac76ff364c_Data.csv","Data/91de8b42-fa3d-44cf-ab4e-4fac76ff364c_Series - Metadata.csv","Data/Abortion_Laws_Indicators.csv","Data/Countries-Continents.csv","Data/Government_Composition_1960-2020_Update_2022.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/figure-html5/unnamed-chunk-8-1.png","index_files/figure-html5/unnamed-chunk-9-1.png","index_files/header-attrs-2.16/header-attrs.js","index_files/header-attrs-2.17/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/kePrint-0.0.1/kePrint.js","index_files/lightable-0.0.1/lightable.css","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1731,8 +1731,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 #   ⁶​`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</code></pre>
 </div>
 <h2 id="introducing-the-data">Introducing the Data</h2>
-<p>I sourced part of this data from a paper by David E. Bloom, David Canning, Günther Fink, and Jocelyn E. Finlay titled “Fertility, female labor force participation, and the demographic dividend”. The authors work with the Harvard School of Public Health, and published the data and paper in 2009. This part of the data would be some
-With the data in my table, thee columns ranging from life_threat to request are binary variables where a “1” means that an abortion would be available for the reason indicated; thus, if the USA had a “1” for request, then that would mean that abortion would be available on request. To these variables, I modified them such that they would provide a continuous scale to which change could be measured and plotted more meaningfully. Changing these involved grouping the categories down to the sub-regions and years and taking the average across the countries represented in those groups.
+<p>I sourced part of this data from a paper by David E. Bloom, David Canning, Günther Fink, and Jocelyn E. Finlay titled “Fertility, female labor force participation, and the demographic dividend”. The authors work with the Harvard School of Public Health, and published the data and paper in 2009. The data in this study could be seen as somewhat cross between cross-sectional and longitudinal studies. The world bank tracks the data from multiple countries over time, whereas the data from the paper appears to look at already recorded data across the categories. Because of this, the world bank could be seen as longitudinal, and the paper is cross-sectional.</p>
+<p>With the data in my table, thee columns ranging from life_threat to request are binary variables where a “1” means that an abortion would be available for the reason indicated; thus, if the USA had a “1” for request, then that would mean that abortion would be available on request. To these variables, I modified them such that they would provide a continuous scale to which change could be measured and plotted more meaningfully. Changing these involved grouping the categories down to the sub-regions and years and taking the average across the countries represented in those groups.
 One example of how this looks for the request variable can be seen below:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -1748,8 +1748,8 @@ One example of how this looks for the request variable can be seen below:</p>
 </div>
 <p><img src="index_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
 </div>
-<p>This plot demonstrates how the restrictions with regard to on request abortions change, and having it grouped to sub-regions allows for a clearer picture of what is going on. There is a higher likelihood of sub-regions representing similar views in comparison to continents where views can vary vastly. While this can still be seen across regions, there is a trade-off with ease of interpretation and accuracy of representation and by sub-region this is somewhat optimized.
-The data with modern contraceptives is sourced from the world bank website, and I have a plot of its trends following:</p>
+<p>This plot demonstrates how the restrictions with regard to on request abortions change, and having it grouped to sub-regions allows for a clearer picture of what is going on. There is a higher likelihood of sub-regions representing similar views in comparison to continents where views can vary vastly. While this can still be seen across regions, there is a trade-off with ease of interpretation and accuracy of representation and by sub-region this is somewhat optimized.</p>
+<p>The data with modern contraceptives is sourced from the world bank website, and I have a plot of its trends following:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>abort_stats</span> <span class='op'>|&gt;</span></span>
@@ -1771,40 +1771,34 @@ The data with modern contraceptives is sourced from the world bank website, and 
 <p><img src="index_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
 </div>
 <p>Within this plot I maintained lines which demonstrated each individual country’s trend, as well as grouping by the sub-regions. In this it is relatively clear what is happening on an individual level as well as what is happening within the groups. This demonstrates a general upward trend, with a few deviations from that.</p>
-<h2 id="regression-analysis-of-contraceptive-prevalence-in-terms-of-years">Regression Analysis of Contraceptive Prevalence in terms of Years</h2>
+<h2 id="subsetting-for-some-regressions">Subsetting for Some Regressions</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span>  <span class='va'>cont_reg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span>formula <span class='op'>=</span> <span class='va'>`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</span> <span class='op'>~</span> <span class='va'>year</span>, data <span class='op'>=</span> <span class='va'>abort_stats</span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>w_europe</span> <span class='op'>&lt;-</span> <span class='va'>abort_stats_props</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>`sub-region`</span> <span class='op'>==</span> <span class='st'>"Western Europe"</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>cont_reg</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>term</span>, <span class='va'>estimate</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>3</span>, col.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Statistic of Interest"</span>, <span class='st'>"Estimated Value"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<span><span class='va'>n_africa</span> <span class='op'>&lt;-</span> <span class='va'>abort_stats_props</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>`sub-region`</span> <span class='op'>==</span> <span class='st'>"Northern Africa"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>e_asia</span> <span class='op'>&lt;-</span> <span class='va'>abort_stats_props</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>`sub-region`</span> <span class='op'>==</span> <span class='st'>"Eastern Asia"</span><span class='op'>)</span></span></code></pre>
 </div>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Statistic of Interest</th>
-<th style="text-align: right;">Estimated Value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">-206.584</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">year</td>
-<td style="text-align: right;">0.122</td>
-</tr>
-</tbody>
-</table>
 </div>
+<h2 id="a-look-into-a-few-regressions">A Look Into a Few Regressions</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>mult_reg_request</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>request</span> <span class='op'>~</span> <span class='va'>year</span> <span class='op'>+</span> <span class='va'>`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</span>, data <span class='op'>=</span> <span class='va'>abort_stats</span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>mult_reg_request</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>request</span> <span class='op'>~</span> <span class='va'>year</span> <span class='op'>+</span> <span class='va'>`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</span> <span class='op'>+</span> <span class='va'>life_threat</span> <span class='op'>+</span> <span class='va'>`sub-region`</span>, data <span class='op'>=</span> <span class='va'>abort_stats_props</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='fu'>modelsummary</span><span class='fu'>::</span><span class='fu'><a href='https://vincentarelbundock.github.io/modelsummary/reference/modelsummary.html'>modelsummary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>cont_reg</span>, <span class='va'>mult_reg_request</span><span class='op'>)</span>,</span>
+<span><span class='va'>models</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span></span>
+<span>  <span class='st'>"Bivar. Reg"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>request</span> <span class='op'>~</span> <span class='va'>`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</span>, data <span class='op'>=</span> <span class='va'>abort_stats_props</span><span class='op'>)</span>,</span>
+<span>  <span class='st'>"Reg. with Life Threat"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>request</span> <span class='op'>~</span> <span class='va'>`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</span><span class='op'>+</span> <span class='va'>life_threat</span>, data <span class='op'>=</span> <span class='va'>abort_stats_props</span><span class='op'>)</span>,</span>
+<span>  <span class='st'>"Reg. with Fetal Impairment"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>request</span> <span class='op'>~</span> <span class='va'>`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</span><span class='op'>+</span> <span class='va'>fetal_impairment</span>, data <span class='op'>=</span> <span class='va'>abort_stats_props</span><span class='op'>)</span>,</span>
+<span>  <span class='st'>"Mult. Reg"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>request</span> <span class='op'>~</span> <span class='va'>year</span> <span class='op'>+</span> <span class='va'>`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</span> <span class='op'>+</span> <span class='va'>fetal_impairment</span> <span class='op'>+</span> <span class='va'>`sub-region`</span>, data <span class='op'>=</span> <span class='va'>abort_stats_props</span><span class='op'>)</span>,</span>
+<span>  <span class='st'>"Western Europe"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>request</span> <span class='op'>~</span> <span class='va'>`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</span> <span class='op'>+</span> <span class='va'>year</span> <span class='op'>+</span> <span class='va'>fetal_impairment</span>, data <span class='op'>=</span> <span class='va'>w_europe</span><span class='op'>)</span>,</span>
+<span>  <span class='st'>"Northern Africa"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>request</span> <span class='op'>~</span> <span class='va'>`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</span> <span class='op'>+</span> <span class='va'>year</span> <span class='op'>+</span> <span class='va'>fetal_impairment</span>, data <span class='op'>=</span> <span class='va'>n_africa</span><span class='op'>)</span>,</span>
+<span>  <span class='st'>"Eastern Asia"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>request</span> <span class='op'>~</span> <span class='va'>`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</span> <span class='op'>+</span> <span class='va'>year</span> <span class='op'>+</span> <span class='va'>fetal_impairment</span>, data <span class='op'>=</span> <span class='va'>e_asia</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'>modelsummary</span><span class='fu'>::</span><span class='fu'><a href='https://vincentarelbundock.github.io/modelsummary/reference/modelsummary.html'>modelsummary</a></span><span class='op'>(</span><span class='va'>models</span>,</span>
 <span>                           statistic <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"s.e. = {std.error}"</span>,</span>
 <span>                                         <span class='st'>"p = {p.value}"</span><span class='op'>)</span>,</span>
 <span>                           gof_map <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"nobs"</span>, <span class='st'>"r.squared"</span>, <span class='st'>"adj.r.squared"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
@@ -1815,10 +1809,25 @@ The data with modern contraceptives is sourced from the world bank website, and 
 <th style="text-align:left;">
 </th>
 <th style="text-align:center;">
-Model 1
+Bivar. Reg
 </th>
 <th style="text-align:center;">
-Model 2
+Reg. with Life Threat
+</th>
+<th style="text-align:center;">
+Reg. with Fetal Impairment
+</th>
+<th style="text-align:center;">
+Mult. Reg
+</th>
+<th style="text-align:center;">
+Western Europe
+</th>
+<th style="text-align:center;">
+Northern Africa
+</th>
+<th style="text-align:center;">
+Eastern Asia
 </th>
 </tr>
 </thead>
@@ -1828,61 +1837,75 @@ Model 2
 (Intercept)
 </td>
 <td style="text-align:center;">
-−206.584
+0.030
 </td>
 <td style="text-align:center;">
-12.926
+−1.168
+</td>
+<td style="text-align:center;">
+−0.126
+</td>
+<td style="text-align:center;">
+−1.775
+</td>
+<td style="text-align:center;">
+−11.854
+</td>
+<td style="text-align:center;">
+0.000
+</td>
+<td style="text-align:center;">
+−4e−15
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 </td>
 <td style="text-align:center;">
-s.e. = 199.993
+s.e. = 0.040
 </td>
 <td style="text-align:center;">
-s.e. = 3.923
+s.e. = 0.289
+</td>
+<td style="text-align:center;">
+s.e. = 0.017
+</td>
+<td style="text-align:center;">
+s.e. = 1.165
+</td>
+<td style="text-align:center;">
+s.e. = 10.779
+</td>
+<td style="text-align:center;">
+s.e. = 2e−15
+</td>
+<td style="text-align:center;">
+s.e. = 1e−15
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 </td>
 <td style="text-align:center;">
-p = 0.302
+p = 0.451
 </td>
 <td style="text-align:center;">
-p = 0.001
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-year
+p = &lt;0.001
 </td>
 <td style="text-align:center;">
-0.122
+p = &lt;0.001
 </td>
 <td style="text-align:center;">
-−0.006
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
+p = 0.129
 </td>
 <td style="text-align:center;">
-s.e. = 0.101
+p = 0.291
 </td>
 <td style="text-align:center;">
-s.e. = 0.002
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
+p = 1.000
 </td>
 <td style="text-align:center;">
-p = 0.227
-</td>
-<td style="text-align:center;">
-p = 0.001
+p = 0.008
 </td>
 </tr>
 <tr>
@@ -1890,9 +1913,95 @@ p = 0.001
 Contraceptive prevalence, any modern method (% of married women ages 15-49)
 </td>
 <td style="text-align:center;">
+0.009
 </td>
 <td style="text-align:center;">
-0.007
+0.008
+</td>
+<td style="text-align:center;">
+0.0009
+</td>
+<td style="text-align:center;">
+−0.0005
+</td>
+<td style="text-align:center;">
+−0.0006
+</td>
+<td style="text-align:center;">
+0.000
+</td>
+<td style="text-align:center;">
+2e−19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.0009
+</td>
+<td style="text-align:center;">
+s.e. = 0.0009
+</td>
+<td style="text-align:center;">
+s.e. = 0.0004
+</td>
+<td style="text-align:center;">
+s.e. = 0.0004
+</td>
+<td style="text-align:center;">
+s.e. = 0.002
+</td>
+<td style="text-align:center;">
+s.e. = 4e−19
+</td>
+<td style="text-align:center;">
+s.e. = 4e−19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+p = &lt;0.001
+</td>
+<td style="text-align:center;">
+p = &lt;0.001
+</td>
+<td style="text-align:center;">
+p = 0.043
+</td>
+<td style="text-align:center;">
+p = 0.239
+</td>
+<td style="text-align:center;">
+p = 0.776
+</td>
+<td style="text-align:center;">
+p = 1.000
+</td>
+<td style="text-align:center;">
+p = 0.637
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+life_threat
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+1.237
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
 </td>
 </tr>
 <tr>
@@ -1901,7 +2010,966 @@ Contraceptive prevalence, any modern method (% of married women ages 15-49)
 <td style="text-align:center;">
 </td>
 <td style="text-align:center;">
-s.e. = 0.0009
+s.e. = 0.296
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+p = &lt;0.001
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fetal_impairment
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.961
+</td>
+<td style="text-align:center;">
+0.719
+</td>
+<td style="text-align:center;">
+0.883
+</td>
+<td style="text-align:center;">
+1.000
+</td>
+<td style="text-align:center;">
+1.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.028
+</td>
+<td style="text-align:center;">
+s.e. = 0.046
+</td>
+<td style="text-align:center;">
+s.e. = 0.254
+</td>
+<td style="text-align:center;">
+s.e. = 5e−17
+</td>
+<td style="text-align:center;">
+s.e. = 7e−17
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+p = &lt;0.001
+</td>
+<td style="text-align:center;">
+p = &lt;0.001
+</td>
+<td style="text-align:center;">
+p = 0.004
+</td>
+<td style="text-align:center;">
+p = &lt;0.001
+</td>
+<td style="text-align:center;">
+p = &lt;0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+year
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.0008
+</td>
+<td style="text-align:center;">
+0.006
+</td>
+<td style="text-align:center;">
+0.000
+</td>
+<td style="text-align:center;">
+2e−18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.0006
+</td>
+<td style="text-align:center;">
+s.e. = 0.005
+</td>
+<td style="text-align:center;">
+s.e. = 8e−19
+</td>
+<td style="text-align:center;">
+s.e. = 7e−19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+p = 0.157
+</td>
+<td style="text-align:center;">
+p = 0.297
+</td>
+<td style="text-align:center;">
+p = 1.000
+</td>
+<td style="text-align:center;">
+p = 0.006
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sub-regionCentral Asia
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.385
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.053
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+p = &lt;0.001
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sub-regionEastern Asia
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.359
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.041
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+p = &lt;0.001
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sub-regionEastern Europe
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.310
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.046
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+p = &lt;0.001
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sub-regionLatin America and the Caribbean
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.028
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.048
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+p = 0.566
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sub-regionMelanesia
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.103
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.064
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+p = 0.110
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sub-regionNorthern Africa
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.162
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.050
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+p = 0.001
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sub-regionNorthern America
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.402
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.062
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+p = &lt;0.001
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sub-regionNorthern Europe
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.142
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.046
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+p = 0.002
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sub-regionSouth-eastern Asia
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.179
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.047
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+p = &lt;0.001
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sub-regionSouthern Asia
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−0.008
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.050
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+p = 0.868
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sub-regionSouthern Europe
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.105
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.046
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+p = 0.024
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sub-regionSub-Saharan Africa
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−0.050
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.050
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+p = 0.320
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sub-regionWestern Asia
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−0.048
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.044
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+p = 0.280
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sub-regionWestern Europe
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.156
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.043
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
 </td>
 </tr>
 <tr>
@@ -1910,7 +2978,17 @@ s.e. = 0.0009
 <td style="text-align:center;box-shadow: 0px 1px">
 </td>
 <td style="text-align:center;box-shadow: 0px 1px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1px">
 p = &lt;0.001
+</td>
+<td style="text-align:center;box-shadow: 0px 1px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1px">
 </td>
 </tr>
 <tr>
@@ -1918,10 +2996,25 @@ p = &lt;0.001
 Num.Obs.
 </td>
 <td style="text-align:center;">
-513
+252
 </td>
 <td style="text-align:center;">
-501
+252
+</td>
+<td style="text-align:center;">
+252
+</td>
+<td style="text-align:center;">
+224
+</td>
+<td style="text-align:center;">
+17
+</td>
+<td style="text-align:center;">
+14
+</td>
+<td style="text-align:center;">
+31
 </td>
 </tr>
 <tr>
@@ -1929,10 +3022,25 @@ Num.Obs.
 R2
 </td>
 <td style="text-align:center;">
-0.003
+0.252
 </td>
 <td style="text-align:center;">
-0.139
+0.301
+</td>
+<td style="text-align:center;">
+0.872
+</td>
+<td style="text-align:center;">
+0.967
+</td>
+<td style="text-align:center;">
+0.884
+</td>
+<td style="text-align:center;">
+1.000
+</td>
+<td style="text-align:center;">
+1.000
 </td>
 </tr>
 <tr>
@@ -1940,17 +3048,83 @@ R2
 R2 Adj.
 </td>
 <td style="text-align:center;">
-0.0009
+0.249
 </td>
 <td style="text-align:center;">
-0.136
+0.295
+</td>
+<td style="text-align:center;">
+0.871
+</td>
+<td style="text-align:center;">
+0.964
+</td>
+<td style="text-align:center;">
+0.857
+</td>
+<td style="text-align:center;">
+1.000
+</td>
+<td style="text-align:center;">
+1.000
 </td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>In this regression model there appears to be a slight positive correlation with the year and the prevalence. The intercept of this would not necessarily serve to be inherently valuable because the year being zero would not be a value that is of interest. The slope of the line is more valuale as it demonstrates that for every year contraceptive prevalence would be expected to increase by around 0.122. This can be somewhat seen with the plots, as on average the slopes of the best fit lines, using a linear model, tend to trend up, with the exception being in Oceania, which has more scattered data.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<h2 id="a-look-at-correlation">A look at Correlation</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>corr</span> <span class='op'>&lt;-</span> <span class='va'>abort_stats_props</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/drop_na.html'>drop_na</a></span><span class='op'>(</span><span class='va'>request</span>, <span class='va'>fetal_impairment</span>, <span class='va'>life_threat</span><span class='op'>)</span></span>
+<span><span class='va'>fetal_cor</span> <span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>corr</span><span class='op'>$</span><span class='va'>request</span>, <span class='va'>corr</span><span class='op'>$</span><span class='va'>fetal_impairment</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>fetal_cor</span></span></code></pre>
+</div>
+<pre><code>[1] 0.9456278</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>life_cor</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>corr</span><span class='op'>$</span><span class='va'>request</span>, <span class='va'>corr</span><span class='op'>$</span><span class='va'>life_threat</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>life_cor</span></span></code></pre>
+</div>
+<pre><code>[1] 0.1991522</code></pre>
+</div>
+<p>Initially in the regressions I debated using the life_threat variable as a control of sorts to attempt to make the model fit better, however, based on the adjusted r squared, the different was only around 0.05. When I used the fetal_impairment variable, however, there was a much better fit demonstrated by the increase in around 0.6 for the adj. r squared. I then ran correlations between the request variable and these other two, and that demonstrated that the fetal_impairment variable is much closer correlated to request. This could be a reason that it led the variable to produce a better fit in the regression; therefore, I used this for the rest of the regressions.</p>
+<p>I then did a regression that included the sub-region variable which allowed for location to be factored in with the fit of the model, which further increased the fit. The final three are subsetted to specific locations and then the regression is performed within that data, which demonstrated that the model did fit in that data set. An interesting thing is that the final two variables had an adj. r squared of one. This would suggest that the regression fits nearly perfectly to the data which is an interesting thing to see.</p>
+<p>Onto the main regression of interest, which is the “Reg. with Fetal Impairment.” In this regression the intercept of it is -0.126, which suggests that when the independent variables (Contraceptive Prevalence, Fetal Impairment, etc.) are zero, that the request proportion would be -0.126. This does not hold much vallue as the proportion could logically not equal zero, but it gives a starting point for the proportion to grow. With the Contraceptive variable, the data suggests that when the other variables are held constant, the request proportion would increase by 0.0009 for every one percent increase in the contraceptive prevalence. This value has a p value of 0.043, so it is significant, yet this does not show a causal relationship as the across the regressions it does not result in a large change, and also the magnitude of the change is not large enough to explain the changes in the data. Fetal impairment demonstrates a stronger relationship as it shows that when fetal impairment proportion increases by one, the request proportion would increase by around 0.961. This also demonstrates significance as the p value is &lt;0.001, which means that the likelihood of this value occurring by chance alone is very low.</p>
+<p>Below I will plot the bivariate regression as it demonstrates the relationship with contraceptives and request. I will also demonstrate the relationship with fetal impairment and request:</p>
+<h2 id="contraceptive-and-request">Contraceptive and Request</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>abort_stats_props</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</span>,</span>
+<span>             y <span class='op'>=</span> <span class='va'>request</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='st'>"Request Proportion"</span>,</span>
+<span>       title <span class='op'>=</span> <span class='st'>"Relationship Between Request Proportion and Contraceptive Prevalence"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span><span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-8-1.png" width="624" /></p>
+</div>
+<h2 id="request-and-fetal-impairment">Request and Fetal Impairment</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>abort_stats_props</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>fetal_impairment</span>,</span>
+<span>             y <span class='op'>=</span> <span class='va'>request</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='st'>"Request Proportion"</span>,</span>
+<span>       x <span class='op'>=</span> <span class='st'>"Fetal Impairment Proportion"</span>,</span>
+<span>       title <span class='op'>=</span> <span class='st'>"Relationship Between Request Proportion and Fetal Impairment Proportion"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span><span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-9-1.png" width="624" /></p>
+</div>
+<p>These two plots demonstrate further that the contraceptive prevalence does not lead to a strong causal relationship as the data is quite scattered. Furthermore, the error can be seen to be larger in that graph suggesting that the relationship is not one that can be viewed causally.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>In this I was able to see that the my question of whether the contraceptive prevalence is tied to abortion access was true. Specifically, I found that in the case of abortions being available at request, the two are not closely related. The regression relating them demonstrates that an increase in the contraceptive prevalence does not lead to a strong increase in request availability, and in certain regions it actually led to a small decrease. The main information here is that the two are not intrinsically related.</p>
+<p>A limitation of this was the data I was using to measure the “liberal” policies. Within the constrains of this variable it was hard to determine whether the policies had an effect. This only had one policy to compare to, so that limits the scope of the analysis. Furthermore, the world bank data was extremely limited because many variables had a lot of NA data which makes it hard to use different ideal variables. To improve this in the future I would try to use a different source for the variables for the liberal policies such that I would have more plentiful data to analyse.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
