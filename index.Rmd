@@ -7,27 +7,39 @@ output:
     self_contained: false
 ---
 
+```{r Setup}
+library(tidyverse)
+library(broom)
+library(infer)
+```
 
 
-## Project thoughts
+## Introduction
 
-I am interested in possible working with something pertaining to law as I consider a possible legal career. Maybe I could look into something with legal ruling in certain communities depending on different factors.
-
-## Project Data
+  In this project I wish to explore the relationship between restrictions upon abortion with liberal policies. I wish to explore whether increasing contraceptive prevalence leads to an increase in availability to abortion. Within this I would be looking across sub-regions, rather than by continents or countries as I feel that would allow for a better view. To look at individual countries would introduce too many variables to plot, which would decrease legibility with little return. On the contrary, just looking at continents leads to the data being simplified to only seven groups which would cuase some points to be lost in the averages. The variable that I chose to use to represent the "liberal" policies is the prevalence of modern contraceptives. I chose this because based on the data that I found from the world bank, it was the one which I felt represented liberalism fairly well, and also had enough data to allow for a more complete analysis. 
+  
+## Loading In the Data
 
 ```{r}
 library(tidyverse)
 abortion<- read_csv("Data/Abortion_Laws_Indicators.csv")
 world_bank <- read_csv("Data/91de8b42-fa3d-44cf-ab4e-4fac76ff364c_Data.csv")
 
-Countries_Continents <- read_csv("Data/Countries-Continents.csv")
+regions = "https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/all/all.csv"
 
-Countries_Continents <- Countries_Continents |>
-  rename(ctr_name = Country)
+region_data<- read_csv(url(regions))
 
-Countries_Continents
+region_data <- region_data |>
+  rename(ctr_name = name)
+
+region_data
 
 abortion
+```
+
+## Data Wrangling and Joining
+
+```{r}
 world_bank_change <- world_bank |>
   select(-c(`Series Code`,`Country Code`)) |>
   mutate("1960" = as.double(`1960 [YR1960]`),
@@ -85,7 +97,6 @@ world_bank_change <- world_bank |>
 
 world_bank_change
 
-  
 
 abort_stats <- abortion |>
   left_join(world_bank_change) |>
@@ -94,57 +105,83 @@ abort_stats <- abortion |>
 abort_stats
 
 abort_stats <- abort_stats |>
-  left_join(Countries_Continents)
+  left_join(region_data)
 
+abort_stats <- abort_stats |>
+  select(-c(`alpha-2`:`region`))
 
+abort_stats <- abort_stats |>
+  select(-index)
+
+abort_stats_props <- abort_stats |>
+  group_by(`sub-region`, year)|>
+  summarise(life_threat = mean(life_threat, na.rm = T),
+            physical_health = mean(physical_health, na.rm = T),
+            mental_health = mean(mental_health, na.rm = T),
+            rape = mean(rape, na.rm = T),
+            fetal_impairment = mean(fetal_impairment, na.rm = T),
+            request = mean(request, na.rm = T),
+            `Contraceptive prevalence, any modern method (% of married women ages 15-49)` = mean(`Contraceptive prevalence, any modern method (% of married women ages 15-49)`, na.rm = T),) 
+
+abort_stats_props
 ```
+## Introducing the Data
 
-## Proposal
-
-One aspect that I would like to spend some time explorig would be the relationship between abortion availability with regards to certain programs that could be seen as more liberal. It could be reasoned that in countries with more liberal policies, there would be more access to abortion with less stringient restrictions. Liberal policies tend to favor more bodily autonomy, therefore it coul dbe assumed that places with liberal policies would, consequently, have greater access to abortion. The first variables ranging from "life_threat" to "request" are the instances in which abortion is available. When there is a one present, that means that aborion is available fro that specific concern. For example, if there is only a one present in "life_threat", then women would only be able to recieve an abortion if the pregrancy posed a threat to their life. The colums following those demonstrate some policies that could be seen as relatively liberal, such as social insurance, and contraceptive access. The outcoe variable in this case would be whether or not abortion is more accessable in different places depending on the presense, or lack of liberal policies. The outcome is binary, and is one when something is an acceptable reason. Data that owuld support this hypothesis would be a higher correlation with data in liberal programs, and more accessible abortion. One main thing that would disprove would be if the presence of liberal programs lessened the access of abortion. 
-
-## Visual 
+  I sourced part of this data from a paper by David E. Bloom, David Canning, Günther Fink, and Jocelyn E. Finlay titled "Fertility, female labor force participation, and the demographic dividend". The authors work with the Harvard School of Public Health, and published the data and paper in 2009. This part of the data would be some
+  With the data in my table, thee columns ranging from life_threat to request are binary variables where a "1" means that an abortion would be available for the reason indicated; thus, if the USA had a "1" for request, then that would mean that abortion would be available on request. To these variables, I modified them such that they would provide a continuous scale to which change could be measured and plotted more meaningfully. Changing these involved grouping the categories down to the sub-regions and years and taking the average across the countries represented in those groups. 
+  One example of how this looks for the request variable can be seen below: 
+  
+```{r}
+abort_stats_props |>
+  ggplot(aes(x = year, 
+             y = request)) +
+  geom_line() +
+  facet_wrap(~`sub-region`, ncol = 4) +
+  theme(axis.text = element_text(size = 8)) +
+  labs(title = "Proportion of Places where Abortion is Available on Request Tracked by Years",
+       x = "Year",
+       y = "Proportion of Request")
+```
+  This plot demonstrates how the restrictions with regard to on request abortions change, and having it grouped to sub-regions allows for a clearer picture of what is going on. There is a higher likelihood of sub-regions representing similar views in comparison to continents where views can vary vastly. While this can still be seen across regions, there is a trade-off with ease of interpretation and accuracy of representation and by sub-region this is somewhat optimized. 
+  The data with modern contraceptives is sourced from the world bank website, and I have a plot of its trends following: 
 
 ```{r}
-cont_prev <- abort_stats |>
+abort_stats |>
   drop_na(`Contraceptive prevalence, any modern method (% of married women ages 15-49)`) |>
-  select(Continent, year, ctr_name, `Contraceptive prevalence, any modern method (% of married women ages 15-49)`)
-
-cont_prev
-
-contraceptive_mdrn_plot <- cont_prev|>
-  group_by(Continent) |>
+  select(`sub-region`, year, ctr_name, `Contraceptive prevalence, any modern method (% of married women ages 15-49)`)|>
+  group_by(`sub-region`) |>
   ggplot(mapping = aes(x = year, 
                        y = `Contraceptive prevalence, any modern method (% of married women ages 15-49)`)) + 
   geom_line(mapping = aes(group = ctr_name)) +
   geom_smooth(method = "lm",
-              se = F) +
-  facet_wrap(~ Continent) +
-  labs(title = "Prevalence of Modern Contraceptives with Respect to Time, by Continent",
+              se = T) +
+  facet_wrap(~ `sub-region`, ncol = 4) +
+  labs(title = "Prevalence of Modern Contraceptives with Respect to Time, by Sub-Region",
        x = "Year",
-       y = "Modern Contraceptive Prevalence (by % Married Women ages 15-49)")
-
-contraceptive_mdrn_plot
- 
+       y = "Modern Contraceptive Prevalence (by % Married Women ages 15-49)") +
+  theme(axis.text = element_text(size = 6),
+        axis.title.y = element_text(size = 10))
 ```
+  Within this plot I maintained lines which demonstrated each individual country's trend, as well as grouping by the sub-regions. In this it is relatively clear what is happening on an individual level as well as what is happening within the groups. This demonstrates a general upward trend, with a few deviations from that. 
+
 
 ## Regression Analysis of Contraceptive Prevalence in terms of Years
 ```{r}
-  cont_reg <- lm(formula = `Contraceptive prevalence, any modern method (% of married women ages 15-49)` ~ year, data = cont_prev)
-
-dot_plot <- cont_prev|>
-  ggplot(mapping = aes(x = year,
-                       y = `Contraceptive prevalence, any modern method (% of married women ages 15-49)`)) +
-  geom_point() +
-  facet_wrap(~Continent) +
-  geom_smooth(method = "lm")
-
-dot_plot
+  cont_reg <- lm(formula = `Contraceptive prevalence, any modern method (% of married women ages 15-49)` ~ year, data = abort_stats)
 
 cont_reg |>
   broom::tidy() |>
   select(term, estimate) |>
   knitr::kable(digits = 3, col.names = c("Statistic of Interest", "Estimated Value"))
+```
+
+```{r}
+mult_reg_request <- lm(request ~ year + `Contraceptive prevalence, any modern method (% of married women ages 15-49)`, data = abort_stats)
+
+modelsummary::modelsummary(list(cont_reg, mult_reg_request),
+                           statistic = c("s.e. = {std.error}",
+                                         "p = {p.value}"),
+                           gof_map = c("nobs", "r.squared", "adj.r.squared"))
 ```
 
 In this regression model there appears to be a slight positive correlation with the year and the prevalence. The intercept of this would not necessarily serve to be inherently valuable because the year being zero would not be a value that is of interest. The slope of the line is more valuale as it demonstrates that for every year contraceptive prevalence would be expected to increase by around 0.122. This can be somewhat seen with the plots, as on average the slopes of the best fit lines, using a linear model, tend to trend up, with the exception being in Oceania, which has more scattered data. 

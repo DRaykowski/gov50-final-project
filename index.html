@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["Data/91de8b42-fa3d-44cf-ab4e-4fac76ff364c_Data.csv","Data/91de8b42-fa3d-44cf-ab4e-4fac76ff364c_Series - Metadata.csv","Data/Abortion_Laws_Indicators.csv","Data/Countries-Continents.csv","Data/Government_Composition_1960-2020_Update_2022.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/header-attrs-2.16/header-attrs.js","index_files/header-attrs-2.17/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["Data/91de8b42-fa3d-44cf-ab4e-4fac76ff364c_Data.csv","Data/91de8b42-fa3d-44cf-ab4e-4fac76ff364c_Series - Metadata.csv","Data/Abortion_Laws_Indicators.csv","Data/Countries-Continents.csv","Data/Government_Composition_1960-2020_Update_2022.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/header-attrs-2.16/header-attrs.js","index_files/header-attrs-2.17/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1473,6 +1473,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   <!--/radix_placeholder_distill-->
   <script src="index_files/header-attrs-2.16/header-attrs.js"></script>
+  <script src="index_files/kePrint-0.0.1/kePrint.js"></script>
+  <link href="index_files/lightable-0.0.1/lightable.css" rel="stylesheet" />
   <script src="index_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="index_files/popper-2.6.0/popper.min.js"></script>
   <link href="index_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -1517,36 +1519,49 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
-<h2 id="project-thoughts">Project thoughts</h2>
-<p>I am interested in possible working with something pertaining to law as I consider a possible legal career. Maybe I could look into something with legal ruling in certain communities depending on different factors.</p>
-<h2 id="project-data">Project Data</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://broom.tidymodels.org/'>broom</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/infer'>infer</a></span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<h2 id="introduction">Introduction</h2>
+<p>In this project I wish to explore the relationship between restrictions upon abortion with liberal policies. I wish to explore whether increasing contraceptive prevalence leads to an increase in availability to abortion. Within this I would be looking across sub-regions, rather than by continents or countries as I feel that would allow for a better view. To look at individual countries would introduce too many variables to plot, which would decrease legibility with little return. On the contrary, just looking at continents leads to the data being simplified to only seven groups which would cuase some points to be lost in the averages. The variable that I chose to use to represent the “liberal” policies is the prevalence of modern contraceptives. I chose this because based on the data that I found from the world bank, it was the one which I felt represented liberalism fairly well, and also had enough data to allow for a more complete analysis.</p>
+<h2 id="loading-in-the-data">Loading In the Data</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
 <span><span class='va'>abortion</span><span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"Data/Abortion_Laws_Indicators.csv"</span><span class='op'>)</span></span>
 <span><span class='va'>world_bank</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"Data/91de8b42-fa3d-44cf-ab4e-4fac76ff364c_Data.csv"</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>Countries_Continents</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"Data/Countries-Continents.csv"</span><span class='op'>)</span></span>
+<span><span class='va'>regions</span> <span class='op'>=</span> <span class='st'>"https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/all/all.csv"</span></span>
 <span></span>
-<span><span class='va'>Countries_Continents</span> <span class='op'>&lt;-</span> <span class='va'>Countries_Continents</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>ctr_name <span class='op'>=</span> <span class='va'>Country</span><span class='op'>)</span></span>
+<span><span class='va'>region_data</span><span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/connections.html'>url</a></span><span class='op'>(</span><span class='va'>regions</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>Countries_Continents</span></span></code></pre>
+<span><span class='va'>region_data</span> <span class='op'>&lt;-</span> <span class='va'>region_data</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>ctr_name <span class='op'>=</span> <span class='va'>name</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>region_data</span></span></code></pre>
 </div>
-<pre><code># A tibble: 194 × 2
-   Continent ctr_name                
-   &lt;chr&gt;     &lt;chr&gt;                   
- 1 Africa    Algeria                 
- 2 Africa    Angola                  
- 3 Africa    Benin                   
- 4 Africa    Botswana                
- 5 Africa    Burkina                 
- 6 Africa    Burundi                 
- 7 Africa    Cameroon                
- 8 Africa    Cape Verde              
- 9 Africa    Central African Republic
-10 Africa    Chad                    
-# … with 184 more rows</code></pre>
+<pre><code># A tibble: 249 × 11
+   ctr_name     alpha…¹ alpha…² count…³ iso_3…⁴ region sub-r…⁵ inter…⁶
+   &lt;chr&gt;        &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;  
+ 1 Afghanistan  AF      AFG     004     ISO 31… Asia   Southe… &lt;NA&gt;   
+ 2 Åland Islan… AX      ALA     248     ISO 31… Europe Northe… &lt;NA&gt;   
+ 3 Albania      AL      ALB     008     ISO 31… Europe Southe… &lt;NA&gt;   
+ 4 Algeria      DZ      DZA     012     ISO 31… Africa Northe… &lt;NA&gt;   
+ 5 American Sa… AS      ASM     016     ISO 31… Ocean… Polyne… &lt;NA&gt;   
+ 6 Andorra      AD      AND     020     ISO 31… Europe Southe… &lt;NA&gt;   
+ 7 Angola       AO      AGO     024     ISO 31… Africa Sub-Sa… Middle…
+ 8 Anguilla     AI      AIA     660     ISO 31… Ameri… Latin … Caribb…
+ 9 Antarctica   AQ      ATA     010     ISO 31… &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt;   
+10 Antigua and… AG      ATG     028     ISO 31… Ameri… Latin … Caribb…
+# … with 239 more rows, 3 more variables: `region-code` &lt;chr&gt;,
+#   `sub-region-code` &lt;chr&gt;, `intermediate-region-code` &lt;chr&gt;, and
+#   abbreviated variable names ¹​`alpha-2`, ²​`alpha-3`,
+#   ³​`country-code`, ⁴​`iso_3166-2`, ⁵​`sub-region`,
+#   ⁶​`intermediate-region`</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>abortion</span></span></code></pre>
 </div>
@@ -1567,6 +1582,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 #   request &lt;dbl&gt;, index &lt;lgl&gt;, and abbreviated variable names
 #   ¹​ctr_year, ²​ctr_name, ³​life_threat, ⁴​physical_health,
 #   ⁵​mental_health, ⁶​fetal_impairment</code></pre>
+</div>
+<h2 id="data-wrangling-and-joining">Data Wrangling and Joining</h2>
+<div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>world_bank_change</span> <span class='op'>&lt;-</span> <span class='va'>world_bank</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>`Series Code`</span>,<span class='va'>`Country Code`</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
@@ -1673,69 +1691,92 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 #   `NA` &lt;dbl&gt;, and abbreviated variable names ¹​ctr_name, …</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>abort_stats</span> <span class='op'>&lt;-</span> <span class='va'>abort_stats</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>Countries_Continents</span><span class='op'>)</span></span></code></pre>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>region_data</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>abort_stats</span> <span class='op'>&lt;-</span> <span class='va'>abort_stats</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>`alpha-2`</span><span class='op'>:</span><span class='va'>`region`</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>abort_stats</span> <span class='op'>&lt;-</span> <span class='va'>abort_stats</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>index</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>abort_stats_props</span> <span class='op'>&lt;-</span> <span class='va'>abort_stats</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>`sub-region`</span>, <span class='va'>year</span><span class='op'>)</span><span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>life_threat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>life_threat</span>, na.rm <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span>,</span>
+<span>            physical_health <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>physical_health</span>, na.rm <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span>,</span>
+<span>            mental_health <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>mental_health</span>, na.rm <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span>,</span>
+<span>            rape <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>rape</span>, na.rm <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span>,</span>
+<span>            fetal_impairment <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>fetal_impairment</span>, na.rm <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span>,</span>
+<span>            request <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>request</span>, na.rm <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span>,</span>
+<span>            `Contraceptive prevalence, any modern method (% of married women ages 15-49)` <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</span>, na.rm <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span>,<span class='op'>)</span> </span>
+<span></span>
+<span><span class='va'>abort_stats_props</span></span></code></pre>
 </div>
+<pre><code># A tibble: 847 × 9
+# Groups:   sub-region [18]
+   sub-r…¹  year life_…² physi…³ menta…⁴  rape fetal…⁵ request Contr…⁶
+   &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Austra…  1960       1       1     0.5     0       0       0     NaN
+ 2 Austra…  1961       1       1     0.5     0       0       0     NaN
+ 3 Austra…  1962       1       1     0.5     0       0       0     NaN
+ 4 Austra…  1963       1       1     0.5     0       0       0     NaN
+ 5 Austra…  1964       1       1     0.5     0       0       0     NaN
+ 6 Austra…  1965       1       1     0.5     0       0       0     NaN
+ 7 Austra…  1966       1       1     0.5     0       0       0     NaN
+ 8 Austra…  1967       1       1     0.5     0       0       0     NaN
+ 9 Austra…  1968       1       1     0.5     0       0       0     NaN
+10 Austra…  1969       1       1     0.5     0       0       0     NaN
+# … with 837 more rows, and abbreviated variable names ¹​`sub-region`,
+#   ²​life_threat, ³​physical_health, ⁴​mental_health,
+#   ⁵​fetal_impairment,
+#   ⁶​`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</code></pre>
 </div>
-<h2 id="proposal">Proposal</h2>
-<p>One aspect that I would like to spend some time explorig would be the relationship between abortion availability with regards to certain programs that could be seen as more liberal. It could be reasoned that in countries with more liberal policies, there would be more access to abortion with less stringient restrictions. Liberal policies tend to favor more bodily autonomy, therefore it coul dbe assumed that places with liberal policies would, consequently, have greater access to abortion. The first variables ranging from “life_threat” to “request” are the instances in which abortion is available. When there is a one present, that means that aborion is available fro that specific concern. For example, if there is only a one present in “life_threat”, then women would only be able to recieve an abortion if the pregrancy posed a threat to their life. The colums following those demonstrate some policies that could be seen as relatively liberal, such as social insurance, and contraceptive access. The outcoe variable in this case would be whether or not abortion is more accessable in different places depending on the presense, or lack of liberal policies. The outcome is binary, and is one when something is an acceptable reason. Data that owuld support this hypothesis would be a higher correlation with data in liberal programs, and more accessible abortion. One main thing that would disprove would be if the presence of liberal programs lessened the access of abortion.</p>
-<h2 id="visual">Visual</h2>
+<h2 id="introducing-the-data">Introducing the Data</h2>
+<p>I sourced part of this data from a paper by David E. Bloom, David Canning, Günther Fink, and Jocelyn E. Finlay titled “Fertility, female labor force participation, and the demographic dividend”. The authors work with the Harvard School of Public Health, and published the data and paper in 2009. This part of the data would be some
+With the data in my table, thee columns ranging from life_threat to request are binary variables where a “1” means that an abortion would be available for the reason indicated; thus, if the USA had a “1” for request, then that would mean that abortion would be available on request. To these variables, I modified them such that they would provide a continuous scale to which change could be measured and plotted more meaningfully. Changing these involved grouping the categories down to the sub-regions and years and taking the average across the countries represented in those groups.
+One example of how this looks for the request variable can be seen below:</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>cont_prev</span> <span class='op'>&lt;-</span> <span class='va'>abort_stats</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/drop_na.html'>drop_na</a></span><span class='op'>(</span><span class='va'>`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>Continent</span>, <span class='va'>year</span>, <span class='va'>ctr_name</span>, <span class='va'>`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</span><span class='op'>)</span></span>
-<span></span>
-<span><span class='va'>cont_prev</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>abort_stats_props</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>year</span>, </span>
+<span>             y <span class='op'>=</span> <span class='va'>request</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>`sub-region`</span>, ncol <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>axis.text <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Proportion of Places where Abortion is Available on Request Tracked by Years"</span>,</span>
+<span>       x <span class='op'>=</span> <span class='st'>"Year"</span>,</span>
+<span>       y <span class='op'>=</span> <span class='st'>"Proportion of Request"</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code># A tibble: 513 × 4
-   Continent      year ctr_name            Contraceptive prevalence,…¹
-   &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;                                     &lt;dbl&gt;
- 1 Asia           2000 Afghanistan                                 3.6
- 2 Europe         2000 Albania                                    17.5
- 3 Africa         1987 Algeria                                    31.3
- 4 Africa         1992 Algeria                                    42.9
- 5 Africa         1995 Algeria                                    49.4
- 6 Africa         2000 Algeria                                    55  
- 7 Africa         1996 Angola                                      4  
- 8 North America  1981 Antigua and Barbuda                        44.6
- 9 Europe         1991 Armenia                                    25.2
-10 Europe         2000 Armenia                                    22.3
-# … with 503 more rows, and abbreviated variable name
-#   ¹​`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</code></pre>
+<p><img src="index_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
+</div>
+<p>This plot demonstrates how the restrictions with regard to on request abortions change, and having it grouped to sub-regions allows for a clearer picture of what is going on. There is a higher likelihood of sub-regions representing similar views in comparison to continents where views can vary vastly. While this can still be seen across regions, there is a trade-off with ease of interpretation and accuracy of representation and by sub-region this is somewhat optimized.
+The data with modern contraceptives is sourced from the world bank website, and I have a plot of its trends following:</p>
+<div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>contraceptive_mdrn_plot</span> <span class='op'>&lt;-</span> <span class='va'>cont_prev</span><span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>Continent</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>abort_stats</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/drop_na.html'>drop_na</a></span><span class='op'>(</span><span class='va'>`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>`sub-region`</span>, <span class='va'>year</span>, <span class='va'>ctr_name</span>, <span class='va'>`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</span><span class='op'>)</span><span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>`sub-region`</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>year</span>, </span>
 <span>                       y <span class='op'>=</span> <span class='va'>`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>group <span class='op'>=</span> <span class='va'>ctr_name</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span>,</span>
-<span>              se <span class='op'>=</span> <span class='cn'>F</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>Continent</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Prevalence of Modern Contraceptives with Respect to Time, by Continent"</span>,</span>
+<span>              se <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span> <span class='va'>`sub-region`</span>, ncol <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Prevalence of Modern Contraceptives with Respect to Time, by Sub-Region"</span>,</span>
 <span>       x <span class='op'>=</span> <span class='st'>"Year"</span>,</span>
-<span>       y <span class='op'>=</span> <span class='st'>"Modern Contraceptive Prevalence (by % Married Women ages 15-49)"</span><span class='op'>)</span></span>
-<span></span>
-<span><span class='va'>contraceptive_mdrn_plot</span></span></code></pre>
+<span>       y <span class='op'>=</span> <span class='st'>"Modern Contraceptive Prevalence (by % Married Women ages 15-49)"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>axis.text <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>,</span>
+<span>        axis.title.y <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
-<p><img src="index_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
+<p><img src="index_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
 </div>
+<p>Within this plot I maintained lines which demonstrated each individual country’s trend, as well as grouping by the sub-regions. In this it is relatively clear what is happening on an individual level as well as what is happening within the groups. This demonstrates a general upward trend, with a few deviations from that.</p>
 <h2 id="regression-analysis-of-contraceptive-prevalence-in-terms-of-years">Regression Analysis of Contraceptive Prevalence in terms of Years</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span>  <span class='va'>cont_reg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span>formula <span class='op'>=</span> <span class='va'>`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</span> <span class='op'>~</span> <span class='va'>year</span>, data <span class='op'>=</span> <span class='va'>cont_prev</span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span>  <span class='va'>cont_reg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span>formula <span class='op'>=</span> <span class='va'>`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</span> <span class='op'>~</span> <span class='va'>year</span>, data <span class='op'>=</span> <span class='va'>abort_stats</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>dot_plot</span> <span class='op'>&lt;-</span> <span class='va'>cont_prev</span><span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>year</span>,</span>
-<span>                       y <span class='op'>=</span> <span class='va'>`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>Continent</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span><span class='op'>)</span></span>
-<span></span>
-<span><span class='va'>dot_plot</span></span></code></pre>
-</div>
-<img src="index_files/figure-html5/unnamed-chunk-3-1.png" width="624" />
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>cont_reg</span> <span class='op'>|&gt;</span></span>
+<span><span class='va'>cont_reg</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>term</span>, <span class='va'>estimate</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>3</span>, col.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Statistic of Interest"</span>, <span class='st'>"Estimated Value"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
@@ -1755,6 +1796,155 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <tr class="even">
 <td style="text-align: left;">year</td>
 <td style="text-align: right;">0.122</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>mult_reg_request</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>request</span> <span class='op'>~</span> <span class='va'>year</span> <span class='op'>+</span> <span class='va'>`Contraceptive prevalence, any modern method (% of married women ages 15-49)`</span>, data <span class='op'>=</span> <span class='va'>abort_stats</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'>modelsummary</span><span class='fu'>::</span><span class='fu'><a href='https://vincentarelbundock.github.io/modelsummary/reference/modelsummary.html'>modelsummary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>cont_reg</span>, <span class='va'>mult_reg_request</span><span class='op'>)</span>,</span>
+<span>                           statistic <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"s.e. = {std.error}"</span>,</span>
+<span>                                         <span class='st'>"p = {p.value}"</span><span class='op'>)</span>,</span>
+<span>                           gof_map <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"nobs"</span>, <span class='st'>"r.squared"</span>, <span class='st'>"adj.r.squared"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+Model 1
+</th>
+<th style="text-align:center;">
+Model 2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:center;">
+−206.584
+</td>
+<td style="text-align:center;">
+12.926
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+s.e. = 199.993
+</td>
+<td style="text-align:center;">
+s.e. = 3.923
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+p = 0.302
+</td>
+<td style="text-align:center;">
+p = 0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+year
+</td>
+<td style="text-align:center;">
+0.122
+</td>
+<td style="text-align:center;">
+−0.006
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.101
+</td>
+<td style="text-align:center;">
+s.e. = 0.002
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+p = 0.227
+</td>
+<td style="text-align:center;">
+p = 0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Contraceptive prevalence, any modern method (% of married women ages 15-49)
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.007
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+s.e. = 0.0009
+</td>
+</tr>
+<tr>
+<td style="text-align:left;box-shadow: 0px 1px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1px">
+p = &lt;0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Num.Obs.
+</td>
+<td style="text-align:center;">
+513
+</td>
+<td style="text-align:center;">
+501
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2
+</td>
+<td style="text-align:center;">
+0.003
+</td>
+<td style="text-align:center;">
+0.139
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2 Adj.
+</td>
+<td style="text-align:center;">
+0.0009
+</td>
+<td style="text-align:center;">
+0.136
+</td>
 </tr>
 </tbody>
 </table>
