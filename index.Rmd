@@ -1,7 +1,7 @@
 ---
-title: "Gov Final Project TBD"
+title: "An Analysis of the Relationship between Contraceptive Prevalence and Availability of Abortion Upon Request"
 author: "Dalton Raykowski"
-description: "Milestone One"
+description: "A look into the relationship between contraceptive prevalence and abortion availability. Analysis devoted to causal significance, as well as the magnitude of the relationship between variables."
 output:
   distill::distill_article:
     self_contained: false
@@ -141,9 +141,10 @@ abort_stats_props |>
   theme(axis.text = element_text(size = 8)) +
   labs(title = "Proportion of Places where Abortion is Available on Request Tracked by Years",
        x = "Year",
-       y = "Proportion of Request")
+       y = "Percent of Abortion Availability on Request",
+       caption = "Figure 1")
 ```
-  This plot demonstrates how the restrictions with regard to on request abortions change, and having it grouped to sub-regions allows for a clearer picture of what is going on. There is a higher likelihood of sub-regions representing similar views in comparison to continents where views can vary vastly. While this can still be seen across regions, there is a trade-off with ease of interpretation and accuracy of representation and by sub-region this is somewhat optimized.
+  Figure 1 demonstrates how the restrictions with regard to on request abortions change, and having it grouped to sub-regions allows for a clearer picture of what is going on. There is a higher likelihood of sub-regions representing similar views in comparison to continents where views can vary vastly. While this can still be seen across regions, there is a trade-off with ease of interpretation and accuracy of representation and by sub-region this is somewhat optimized.
   
   The data with modern contraceptives is sourced from the world bank website, and I have a plot of its trends following: 
 
@@ -160,11 +161,12 @@ abort_stats |>
   facet_wrap(~ `sub-region`, ncol = 4) +
   labs(title = "Prevalence of Modern Contraceptives with Respect to Time, by Sub-Region",
        x = "Year",
-       y = "Modern Contraceptive Prevalence (by % Married Women ages 15-49)") +
+       y = "Modern Contraceptive Prevalence (by % Married Women ages 15-49)",
+       caption = "Figure 2") +
   theme(axis.text = element_text(size = 6),
         axis.title.y = element_text(size = 10))
 ```
-  Within this plot I maintained lines which demonstrated each individual country's trend, as well as grouping by the sub-regions. In this it is relatively clear what is happening on an individual level as well as what is happening within the groups. This demonstrates a general upward trend, with a few deviations from that. 
+  Within Figure 2 I maintained lines which demonstrated each individual country's trend, as well as grouping by the sub-regions. In this it is relatively clear what is happening on an individual level as well as what is happening within the groups. This demonstrates a general upward trend, with a few deviations from that. 
   
 ## A Plot of the Relationship between Request Proportion and Contraceptive Prevalance
 
@@ -173,14 +175,15 @@ abort_stats_props |>
   ggplot(aes(x = `Contraceptive prevalence, any modern method (% of married women ages 15-49)`,
              y = request)) + 
   geom_point() +
-  labs(y = "Request Proportion",
-       title = "Relationship Between Request Proportion and Contraceptive Prevalence") +
+  labs(y = "Percent of Abortion Available on Request",
+       title = "Relationship Between Request Proportion and Contraceptive Prevalence",
+       caption = "Figure 3") +
   geom_smooth(method = "lm")
 ```
 
-In this plot it appears that there is a relatively strong relationship between these two variables. The error can be seen to get larger as one approaches the further ends of the best fit line, but regardless of that, there does appear to be some correlated relation between these two variables. 
+In Figure 3, it appears that there is a relatively strong relationship between these two variables. The error can be seen to get larger as one approaches the further ends of the best fit line, but regardless of that, there does appear to be some correlated relation between these two variables. 
 
-## Causal Analysis via Average Treatment Effects
+## Average Treatment Effect with Treatment Parameter Set to 50 Percent
 
 ```{r}
 abort_ates <- abort_stats_props |>
@@ -193,9 +196,7 @@ ate <- abort_ates |>
 
 ate
 
-abort_null <- abort_stats_props |>
-  drop_na(`Contraceptive prevalence, any modern method (% of married women ages 15-49)`) |>
-  mutate(contraceptive = ifelse(`Contraceptive prevalence, any modern method (% of married women ages 15-49)` >= 50, "1", "0")) |>
+abort_null <- abort_ates |>
   select(`sub-region`,year, request, contraceptive)|>
   specify(request ~ contraceptive) |>
   hypothesise(null = "independence") |>
@@ -204,17 +205,54 @@ abort_null <- abort_stats_props |>
 
 abort_null|>
   visualise() +
-  shade_p_value(obs_stat = ate, direction = "both")
+  shade_p_value(obs_stat = ate, direction = "both") +
+  labs(title = "Null Distribution",
+       caption = "Figure 4",
+       x = "Average Treatment Effect",
+       y = "Number of Observations")
 
 abort_null|>
   get_p_value(obs_stat = ate, direction = "both")
 ```
+## Average Treatment Effect with Treatment Parameter Set to 10 Percent
+```{r}
+abort_ates_10 <- abort_stats_props |>
+  drop_na(`Contraceptive prevalence, any modern method (% of married women ages 15-49)`) |>
+  mutate(contraceptive = ifelse(`Contraceptive prevalence, any modern method (% of married women ages 15-49)` >= 10, "1", "0")) 
 
-Through this analysis, I had to establish something that could be viewed as a treatment variable, as the data did not explicitly have experimental varaibles. To do this, I chose that the Contraceptive Prevalence variable would be my treatment, and assumed that a treated group could be those where the prevalence was greater than or equal to 50%. This value is not definitive, and could be subject to change depending on circumstances.
+ate_10 <- abort_ates_10 |>
+  specify(request ~ contraceptive) |>
+  calculate(stat = "diff in means", order = c("1", "0"))
 
-In this analysis, I first calculated the average treatment effect to be around 0.3, which suggests that having a contraceptive prevalence of 50% or above would lead to an increase in the availability of abortion on request. After this, I conducted a permutation test to see if it were possible that this value could be attained assuming that the Contraceptive prevalence had no effect on the request availability. The plot for this null distribution can be seen above, with the observed average treatment effect plotted on it. Based on this, the value falls beyond the scope of the majority of hte data which would suggest that it is indeed significant. Furthermore, when calculating the actual p value, it can be seen that the value is approximately zero, which suggests that there is a very low likelihood that the value could be attained by chance alone. 
+ate_10
 
-Assuming these conditions, and also that the contraceptive variable being set at 50% is a good determining factor, then it could be assumed that the prevalence does indeed hold causal value. There is little chance that we could have seen the value that was observed assuming that the contraceptives did not play a role, and thus it is reasonalbe to assume that it does affect the request availability. 
+abort_null_10 <- abort_ates_10|>
+  select(`sub-region`,year, request, contraceptive)|>
+  specify(request ~ contraceptive) |>
+  hypothesise(null = "independence") |>
+  generate(reps = 10000, type = "permute") |>
+  calculate(stat = "diff in means", order = c("1", "0"))
+
+abort_null_10|>
+  visualise() +
+  shade_p_value(obs_stat = ate_10, direction = "both") +
+    labs(title = "Null Distribution",
+       caption = "Figure 5",
+       x = "Average Treatment Effect",
+       y = "Number of Observations")
+
+abort_null_10|>
+  get_p_value(obs_stat = ate_10, direction = "both")
+```
+## Analysis of Causality
+
+Through this analysis, I had to establish something that could be viewed as a treatment variable, as the data did not explicitly have experimental variables. To do this, I chose that the Contraceptive Prevalence variable would be my treatment, and assumed that a treated group could be those where the prevalence was greater than or equal to 50%. This value is not definitive, and in a second analysis under the first I set this parameter to be 10% instead of 50%. 
+
+In this analysis, I first calculated the average treatment effect to be around 0.3, which suggests that having a contraceptive prevalence of 50% or above would lead to an increase in the availability of abortion on request. After this, I conducted a permutation test to see if it were possible that this value could be attained assuming that the Contraceptive prevalence had no effect on the request availability. The plot for this null distribution can be seen above in Figure 4, with the observed average treatment effect plotted on it. Based on this, the value falls beyond the scope of the majority of the data which would suggest that it is indeed significant. Furthermore, when calculating the actual p value, it can be seen that the value is approximately zero, which suggests that there is a very low likelihood that the value could be attained by chance alone. 
+
+Assuming these conditions, and also that the contraceptive variable being set at 50% is a good determining factor, then it could be assumed that the prevalence does indeed hold causal value. There is little chance that we could have seen the value that was observed assuming that the contraceptives did not play a role, and thus it is reasonable to assume that it does affect the request availability. Further, the aforementioned results demonstrated similar to results in the case where I used 10% as the parameter for "treatment". In this case the ATE was around 0.29, which suggests similar results to the case with 50% as the parameter. The p value in this case is also approximately zero which suggests that this is also likely not due to chance. The plot for this second set of conditions can be seen in Figure 5.
+
+Considering that both of these instances resulted in similar effects, a causal relationship is probable as they both presented results where contraceptive prevalence being above a certain threshold lead to an increase in the average availability of abortions on request. 
 
 ## A Look Into a Few Regressions
 ```{r}
@@ -223,16 +261,23 @@ mult_reg_request <- lm(request ~ year + `Contraceptive prevalence, any modern me
 models <- list(
   "Bivar. Reg" = lm(request ~ `Contraceptive prevalence, any modern method (% of married women ages 15-49)`, data = abort_stats_props),
   "Reg. with Life Threat" = lm(request ~ `Contraceptive prevalence, any modern method (% of married women ages 15-49)`+ life_threat, data = abort_stats_props),
-  "Reg. with Fetal Impairment" = lm(request ~ `Contraceptive prevalence, any modern method (% of married women ages 15-49)`+ fetal_impairment, data = abort_stats_props),
-  "Mult. Reg" = lm(request ~ year + `Contraceptive prevalence, any modern method (% of married women ages 15-49)` + fetal_impairment + `sub-region`, data = abort_stats_props)
-  )
+  "Reg. with Fetal Impairment" = lm(request ~ `Contraceptive prevalence, any modern method (% of married women ages 15-49)`+ fetal_impairment, data = abort_stats_props))
+
+var_labels <- c(
+  "(Intercept)" = "Intercept",
+  "Contraceptive prevalence, any modern method (% of married women ages 15-49)" = "Contraceptive Prevalence (Any Modern Method)",
+  "life_threat" = "Life Threat",
+  "fetal_impairment" = "Fetal Impairment",
+  "year" = "Year")
 
 modelsummary::modelsummary(models,
                            statistic = c("s.e. = {std.error}",
                                          "p = {p.value}"),
-                           gof_map = c("nobs", "r.squared", "adj.r.squared"))
+                           coef_map = var_labels,
+                           gof_map = c("nobs", "r.squared", "adj.r.squared"),
+                           notes = "Figure 6")
 ```
-## A look at Correlation
+## A Look at Correlation
 ```{r}
 corr <- abort_stats_props |>
   drop_na(request, fetal_impairment, life_threat)
@@ -245,17 +290,17 @@ life_cor <- cor(corr$request, corr$life_threat)
 life_cor
 ```
 
-  Initially in the regressions I debated using the life_threat variable as a control of sorts to attempt to make the model fit better, however, based on the adjusted r squared, the different was only around 0.05. When I used the fetal_impairment variable, however, there was a much better fit demonstrated by the increase in around 0.6 for the adj. r squared. I then ran correlations between the request variable and these other two, and that demonstrated that the fetal_impairment variable is much closer correlated to request. This could be a reason that it led the variable to produce a better fit in the regression; therefore, I used this for the rest of the regressions.
+  Initially, in the regressions presented in Figure 6, I debated using the life threat variable as a control of sorts to attempt to make the model fit better, however, based on the adjusted r squared, the different was only around 0.05. When I used the fetal impairment variable, however, there was a much better fit demonstrated by the increase in around 0.6 for the adj. r squared. I then ran correlations between the request variable and these other two, and that demonstrated that the fetal_impairment variable is much closer correlated to request. This could be a reason that it led the variable to produce a better fit in the regression; therefore, I used this for the rest of the regressions.
   
-  I then did a regression that included the sub-region variable which allowed for location to be factored in with the fit of the model, which further increased the fit. The final three are subsetted to specific locations and then the regression is performed within that data, which demonstrated that the model did fit in that data set. An interesting thing is that the final two variables had an adj. r squared of one. This would suggest that the regression fits nearly perfectly to the data which is an interesting thing to see. 
+  Onto the main regression of interest, which is the "Reg. with Fetal Impairment." This regression has an adjusted r squared of around 0.87, which suggests that it fits the data extremely well. In this regression the intercept of it is -0.126, which suggests that when the independent variables (Contraceptive Prevalence, Fetal Impairment, etc.) are zero, that the request proportion would be -0.126. This does not hold much value as the proportion could logically not equal zero, but it gives a starting point for the proportion to grow. With the Contraceptive variable, the data suggests that when the other variables are held constant, the request proportion would increase by 0.0009 for every one percent increase in the contraceptive prevalence. This value has a p value of 0.043, so it is significant, yet it does not show a large change in the request. This is especially interesting when looking at the slope of the line in the above graph correlating contraceptive prevalence with request availability, as that suggests a much stronger relation. Furthermore, the causal analysis suggests that contraceptive analysis is causally related to request availability, thus is would be expected that the coefficient is larger. This disparity could be explained in that these regressions control for other variables. In the causal analysis and the previous plot, the only relationship analyzed was the one between contraceptive prevalence and request availability, so the effect of other variables would have appeared to be a result of the contraceptives. When these other variables were implemented, however, this relationship is diminished.^[Ideas here were in part fostered by Dan Baissa]  Fetal impairment demonstrates a stronger relationship as it shows that when fetal impairment proportion increases by one, the request proportion would increase by around 0.961. This also demonstrates significance as the p value is <0.001, which means that the likelihood of this value occurring by chance alone is very low. 
   
-  Onto the main regression of interest, which is the "Reg. with Fetal Impairment." In this regression the intercept of it is -0.126, which suggests that when the independent variables (Contraceptive Prevalence, Fetal Impairment, etc.) are zero, that the request proportion would be -0.126. This does not hold much vallue as the proportion could logically not equal zero, but it gives a starting point for the proportion to grow. With the Contraceptive variable, the data suggests that when the other variables are held constant, the request proportion would increase by 0.0009 for every one percent increase in the contraceptive prevalence. This value has a p value of 0.043, so it is significant, yet this does not show a causal relationship as the across the regressions it does not result in a large change, and also the magnitude of the change is not large enough to explain the changes in the data. Fetal impairment demonstrates a stronger relationship as it shows that when fetal impairment proportion increases by one, the request proportion would increase by around 0.961. This also demonstrates significance as the p value is <0.001, which means that the likelihood of this value occurring by chance alone is very low. 
+  
 
 ## Conclusion
 
-  In this I was able to see that the my question of whether the contraceptive prevalence is tied to abortion access was true. Specifically, I found that in the case of abortions being available at request, the two are not closely related. The regression relating them demonstrates that an increase in the contraceptive prevalence does not lead to a strong increase in request availability, and in certain regions it actually led to a small decrease.  The main information here is that the two are not intrinsically related. 
+  In this I was able to see that the my question of whether the contraceptive prevalence is tied to abortion access was true. Specifically, I found that in the case of abortions being available at request, the two are not closely related. The regression relating them demonstrates that an increase in the contraceptive prevalence does not lead to a strong increase in request availability. A bivariate regression suggests that they are related and are causally related, however, when the regression is controlled for with other variables these relationships diminish. 
   
-  A limitation of this was the data I was using to measure the "liberal" policies. Within the constrains of this variable it was hard to determine whether the policies had an effect. This only had one policy to compare to, so that limits the scope of the analysis. Furthermore, the world bank data was extremely limited because many variables had a lot of NA data which makes it hard to use different ideal variables. To improve this in the future I would try to use a different source for the variables for the liberal policies such that I would have more plentiful data to analyse. 
+  A limitation of this was the data I was using to measure the "liberal" policies. Within the constrains of this variable it was hard to determine whether the policies had an effect. This only had one policy to compare to, so that limits the scope of the analysis. Furthermore, the world bank data was extremely limited because many variables had a lot of NA data which makes it hard to use different ideal variables. There is also the point that the data that was actually usable for the regression only came out to around 252 observations, which marks a large decrease from the total value in the dataset which is around 800 observations.  To improve this in the future I would try to use a different source for the variables for the liberal policies such that I would have more plentiful data to analyse, that would not require dropping a lot of NA values. 
   
 
   
