@@ -165,6 +165,39 @@ abort_stats |>
         axis.title.y = element_text(size = 10))
 ```
   Within this plot I maintained lines which demonstrated each individual country's trend, as well as grouping by the sub-regions. In this it is relatively clear what is happening on an individual level as well as what is happening within the groups. This demonstrates a general upward trend, with a few deviations from that. 
+  
+## A Plot of the Relationship between Request Proportion and Contraceptive Prevalance
+
+```{r}
+abort_stats_props |>
+  ggplot(aes(x = `Contraceptive prevalence, any modern method (% of married women ages 15-49)`,
+             y = request)) + 
+  geom_point() +
+  labs(y = "Request Proportion",
+       title = "Relationship Between Request Proportion and Contraceptive Prevalence") +
+  geom_smooth(method = "lm")
+```
+
+In this plot it appears that there is a relatively strong relationship between these two variables. The error can be seen to get larger as one approaches the further ends of the best fit line, but regardless of that, there does appear to be some correlated relation between these two variables. 
+
+## Causal Analysis via Average Treatment Effects
+
+```{r}
+abort_stats |>
+  drop_na(`Contraceptive prevalence, any modern method (% of married women ages 15-49)`) |>
+  mutate(contraceptive = ifelse(`Contraceptive prevalence, any modern method (% of married women ages 15-49)` >= 50, "1", "0")) |>
+  select(year, request, contraceptive)|>
+  group_by(contraceptive) |>
+  summarise(ave_request = mean(request, na.rm = TRUE)) |>
+  pivot_wider(names_from = contraceptive,
+              values_from = ave_request) |>
+  mutate(ATE = `1` - `0`) |>
+  select(ATE)
+```
+
+Through this analysis, I had to establish something that could be viewed as a treatment variable, as the data did not explicitly have experimental varaibles. To do this, I chose that the Contraceptive Prevalence variable would be my treatment, and assumed that a treated group could be those where the prevalence was greater than or equal to 50%. This value is not definitive, and could be subject to change depending on circumstances. Furthermore, I was able to use the original dataset that was not averaged to proportions, as the process of finding ATE would do that for me, thus I was able to keep more data present throughout the process. 
+
+Inn this exploration I found that there does appear to be a relation between having contraceptive prevalence or 50% or higher leading to an increase in reuqest availability of abortions. This value is around 0.28 which suggests that having the higher proportion of contraceptives led to a substantive increase in request availability. 
 
 ## Subsetting for Some Regressions
 ```{r}
@@ -189,9 +222,9 @@ models <- list(
   "Reg. with Life Threat" = lm(request ~ `Contraceptive prevalence, any modern method (% of married women ages 15-49)`+ life_threat, data = abort_stats_props),
   "Reg. with Fetal Impairment" = lm(request ~ `Contraceptive prevalence, any modern method (% of married women ages 15-49)`+ fetal_impairment, data = abort_stats_props),
   "Mult. Reg" = lm(request ~ year + `Contraceptive prevalence, any modern method (% of married women ages 15-49)` + fetal_impairment + `sub-region`, data = abort_stats_props),
-  "Western Europe" = lm(request ~ `Contraceptive prevalence, any modern method (% of married women ages 15-49)` + year + fetal_impairment, data = w_europe),
-  "Northern Africa" = lm(request ~ `Contraceptive prevalence, any modern method (% of married women ages 15-49)` + year + fetal_impairment, data = n_africa),
-  "Eastern Asia" = lm(request ~ `Contraceptive prevalence, any modern method (% of married women ages 15-49)` + year + fetal_impairment, data = e_asia))
+  "Western Europe" = lm(request ~ `Contraceptive prevalence, any modern method (% of married women ages 15-49)`, data = w_europe),
+  "Northern Africa" = lm(request ~ `Contraceptive prevalence, any modern method (% of married women ages 15-49)`, data = n_africa),
+  "Eastern Asia" = lm(request ~ `Contraceptive prevalence, any modern method (% of married women ages 15-49)`, data = e_asia))
 
 modelsummary::modelsummary(models,
                            statistic = c("s.e. = {std.error}",
@@ -216,36 +249,13 @@ life_cor
   I then did a regression that included the sub-region variable which allowed for location to be factored in with the fit of the model, which further increased the fit. The final three are subsetted to specific locations and then the regression is performed within that data, which demonstrated that the model did fit in that data set. An interesting thing is that the final two variables had an adj. r squared of one. This would suggest that the regression fits nearly perfectly to the data which is an interesting thing to see. 
   
   Onto the main regression of interest, which is the "Reg. with Fetal Impairment." In this regression the intercept of it is -0.126, which suggests that when the independent variables (Contraceptive Prevalence, Fetal Impairment, etc.) are zero, that the request proportion would be -0.126. This does not hold much vallue as the proportion could logically not equal zero, but it gives a starting point for the proportion to grow. With the Contraceptive variable, the data suggests that when the other variables are held constant, the request proportion would increase by 0.0009 for every one percent increase in the contraceptive prevalence. This value has a p value of 0.043, so it is significant, yet this does not show a causal relationship as the across the regressions it does not result in a large change, and also the magnitude of the change is not large enough to explain the changes in the data. Fetal impairment demonstrates a stronger relationship as it shows that when fetal impairment proportion increases by one, the request proportion would increase by around 0.961. This also demonstrates significance as the p value is <0.001, which means that the likelihood of this value occurring by chance alone is very low. 
-  
-  Below I will plot the bivariate regression as it demonstrates the relationship with contraceptives and request. I will also demonstrate the relationship with fetal impairment and request:
-  
-## Contraceptive and Request  
-```{r}
-abort_stats_props |>
-  ggplot(aes(x = `Contraceptive prevalence, any modern method (% of married women ages 15-49)`,
-             y = request)) + 
-  geom_point() +
-  labs(y = "Request Proportion",
-       title = "Relationship Between Request Proportion and Contraceptive Prevalence") +
-  geom_smooth(method = "lm")
-```
-
-## Request and Fetal Impairment
-```{r}
-abort_stats_props |>
-  ggplot(aes(x = fetal_impairment,
-             y = request)) + 
-  geom_point() +
-  labs(y = "Request Proportion",
-       x = "Fetal Impairment Proportion",
-       title = "Relationship Between Request Proportion and Fetal Impairment Proportion") +
-  geom_smooth(method = "lm")
-```
-These two plots demonstrate further that the contraceptive prevalence does not lead to a strong causal relationship as the data is quite scattered. Furthermore, the error can be seen to be larger in that graph suggesting that the relationship is not one that can be viewed causally. 
 
 ## Conclusion
 
   In this I was able to see that the my question of whether the contraceptive prevalence is tied to abortion access was true. Specifically, I found that in the case of abortions being available at request, the two are not closely related. The regression relating them demonstrates that an increase in the contraceptive prevalence does not lead to a strong increase in request availability, and in certain regions it actually led to a small decrease.  The main information here is that the two are not intrinsically related. 
   
   A limitation of this was the data I was using to measure the "liberal" policies. Within the constrains of this variable it was hard to determine whether the policies had an effect. This only had one policy to compare to, so that limits the scope of the analysis. Furthermore, the world bank data was extremely limited because many variables had a lot of NA data which makes it hard to use different ideal variables. To improve this in the future I would try to use a different source for the variables for the liberal policies such that I would have more plentiful data to analyse. 
+  
+
+  
   
