@@ -183,21 +183,33 @@ In this plot it appears that there is a relatively strong relationship between t
 ## Causal Analysis via Average Treatment Effects
 
 ```{r}
-abort_stats |>
+abort_ates <- abort_stats_props |>
+  drop_na(`Contraceptive prevalence, any modern method (% of married women ages 15-49)`) |>
+  mutate(contraceptive = ifelse(`Contraceptive prevalence, any modern method (% of married women ages 15-49)` >= 50, "1", "0")) 
+
+ate <- abort_ates |>
+  specify(request ~ contraceptive) |>
+  calculate(stat = "diff in means", order = c("1", "0"))
+
+ate
+
+abort_null <- abort_stats_props |>
   drop_na(`Contraceptive prevalence, any modern method (% of married women ages 15-49)`) |>
   mutate(contraceptive = ifelse(`Contraceptive prevalence, any modern method (% of married women ages 15-49)` >= 50, "1", "0")) |>
-  select(year, request, contraceptive)|>
-  group_by(contraceptive) |>
-  summarise(ave_request = mean(request, na.rm = TRUE)) |>
-  pivot_wider(names_from = contraceptive,
-              values_from = ave_request) |>
-  mutate(ATE = `1` - `0`) |>
-  select(ATE)
+  select(`sub-region`,year, request, contraceptive)|>
+  specify(request ~ contraceptive) |>
+  hypothesise(null = "independence") |>
+  generate(reps = 10000, type = "permute") |>
+  calculate(stat = "diff in means", order = c("1", "0"))
+
+abort_null|>
+  visualise() +
+  shade_p_value(obs_stat = ate, direction = "both")
 ```
 
-Through this analysis, I had to establish something that could be viewed as a treatment variable, as the data did not explicitly have experimental varaibles. To do this, I chose that the Contraceptive Prevalence variable would be my treatment, and assumed that a treated group could be those where the prevalence was greater than or equal to 50%. This value is not definitive, and could be subject to change depending on circumstances. Furthermore, I was able to use the original dataset that was not averaged to proportions, as the process of finding ATE would do that for me, thus I was able to keep more data present throughout the process. 
+Through this analysis, I had to establish something that could be viewed as a treatment variable, as the data did not explicitly have experimental varaibles. To do this, I chose that the Contraceptive Prevalence variable would be my treatment, and assumed that a treated group could be those where the prevalence was greater than or equal to 50%. This value is not definitive, and could be subject to change depending on circumstances.] 
 
-Inn this exploration I found that there does appear to be a relation between having contraceptive prevalence or 50% or higher leading to an increase in reuqest availability of abortions. This value is around 0.28 which suggests that having the higher proportion of contraceptives led to a substantive increase in request availability. 
+
 
 ## Subsetting for Some Regressions
 ```{r}
