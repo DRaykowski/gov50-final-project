@@ -205,25 +205,16 @@ abort_null <- abort_stats_props |>
 abort_null|>
   visualise() +
   shade_p_value(obs_stat = ate, direction = "both")
+
+abort_null|>
+  get_p_value(obs_stat = ate, direction = "both")
 ```
 
-Through this analysis, I had to establish something that could be viewed as a treatment variable, as the data did not explicitly have experimental varaibles. To do this, I chose that the Contraceptive Prevalence variable would be my treatment, and assumed that a treated group could be those where the prevalence was greater than or equal to 50%. This value is not definitive, and could be subject to change depending on circumstances.] 
+Through this analysis, I had to establish something that could be viewed as a treatment variable, as the data did not explicitly have experimental varaibles. To do this, I chose that the Contraceptive Prevalence variable would be my treatment, and assumed that a treated group could be those where the prevalence was greater than or equal to 50%. This value is not definitive, and could be subject to change depending on circumstances.
 
+In this analysis, I first calculated the average treatment effect to be around 0.3, which suggests that having a contraceptive prevalence of 50% or above would lead to an increase in the availability of abortion on request. After this, I conducted a permutation test to see if it were possible that this value could be attained assuming that the Contraceptive prevalence had no effect on the request availability. The plot for this null distribution can be seen above, with the observed average treatment effect plotted on it. Based on this, the value falls beyond the scope of the majority of hte data which would suggest that it is indeed significant. Furthermore, when calculating the actual p value, it can be seen that the value is approximately zero, which suggests that there is a very low likelihood that the value could be attained by chance alone. 
 
-
-## Subsetting for Some Regressions
-```{r}
-w_europe <- abort_stats_props |>
-  filter(`sub-region` == "Western Europe")
-
-n_africa <- abort_stats_props |>
-  filter(`sub-region` == "Northern Africa")
-
-e_asia <- abort_stats_props |>
-  filter(`sub-region` == "Eastern Asia")
-
-
-```
+Assuming these conditions, and also that the contraceptive variable being set at 50% is a good determining factor, then it could be assumed that the prevalence does indeed hold causal value. There is little chance that we could have seen the value that was observed assuming that the contraceptives did not play a role, and thus it is reasonalbe to assume that it does affect the request availability. 
 
 ## A Look Into a Few Regressions
 ```{r}
@@ -233,10 +224,8 @@ models <- list(
   "Bivar. Reg" = lm(request ~ `Contraceptive prevalence, any modern method (% of married women ages 15-49)`, data = abort_stats_props),
   "Reg. with Life Threat" = lm(request ~ `Contraceptive prevalence, any modern method (% of married women ages 15-49)`+ life_threat, data = abort_stats_props),
   "Reg. with Fetal Impairment" = lm(request ~ `Contraceptive prevalence, any modern method (% of married women ages 15-49)`+ fetal_impairment, data = abort_stats_props),
-  "Mult. Reg" = lm(request ~ year + `Contraceptive prevalence, any modern method (% of married women ages 15-49)` + fetal_impairment + `sub-region`, data = abort_stats_props),
-  "Western Europe" = lm(request ~ `Contraceptive prevalence, any modern method (% of married women ages 15-49)`, data = w_europe),
-  "Northern Africa" = lm(request ~ `Contraceptive prevalence, any modern method (% of married women ages 15-49)`, data = n_africa),
-  "Eastern Asia" = lm(request ~ `Contraceptive prevalence, any modern method (% of married women ages 15-49)`, data = e_asia))
+  "Mult. Reg" = lm(request ~ year + `Contraceptive prevalence, any modern method (% of married women ages 15-49)` + fetal_impairment + `sub-region`, data = abort_stats_props)
+  )
 
 modelsummary::modelsummary(models,
                            statistic = c("s.e. = {std.error}",
